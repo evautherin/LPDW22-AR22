@@ -14,6 +14,11 @@ import RealityKit
 class ViewModel: ObservableObject {
     @Published var arView = ARView(frame: .zero)
     
-    init() {
+    func addCube() {
+        // Load the "Box" scene from the "Experience" Reality File
+        let boxAnchor = try! Experience.loadBox()
+        
+        // Add the box anchor to the scene
+        arView.scene.anchors.append(boxAnchor)
     }
 }

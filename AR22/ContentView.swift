@@ -12,8 +12,18 @@ struct ContentView : View {
     @StateObject var model = ViewModel()
     
     var body: some View {
-        return ARViewContainer(model: model)
-            .edgesIgnoringSafeArea(.all)
+        ZStack {
+            ARViewContainer(model: model)
+            VStack {
+                Button {
+                    model.addCube()
+                } label: {
+                    Image(systemName: "plus.circle")
+                }
+                .buttonStyle(.borderedProminent)
+                .padding()
+            }
+        }.edgesIgnoringSafeArea(.all)
     }
 }
 
@@ -22,17 +32,8 @@ struct ARViewContainer: UIViewRepresentable {
     @ObservedObject var model: ViewModel
     
     func makeUIView(context: Context) -> ARView {
-        
         let arView = model.arView // ARView(frame: .zero)
-        
-        // Load the "Box" scene from the "Experience" Reality File
-        let boxAnchor = try! Experience.loadBox()
-        
-        // Add the box anchor to the scene
-        arView.scene.anchors.append(boxAnchor)
-        
         return arView
-        
     }
     
     func updateUIView(_ uiView: ARView, context: Context) {}
