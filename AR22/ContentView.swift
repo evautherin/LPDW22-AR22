@@ -12,9 +12,12 @@ struct ContentView : View {
     @StateObject var model = ViewModel()
     
     var body: some View {
-        ZStack {
-            ARViewContainer(model: model)
-            VStack {
+        HStack {
+            ARUIView(model: model)
+            ZStack {
+//                Spacer().frame(width: 600.0)
+                 ARViewContainer(model: model)
+                
                 Button {
                     model.addCube()
                 } label: {
@@ -22,8 +25,8 @@ struct ContentView : View {
                 }
                 .buttonStyle(.borderedProminent)
                 .padding()
-            }
-        }.edgesIgnoringSafeArea(.all)
+            }.edgesIgnoringSafeArea(.all)
+        }
     }
 }
 
@@ -44,6 +47,9 @@ struct ARViewContainer: UIViewRepresentable {
 struct ContentView_Previews : PreviewProvider {
     static var previews: some View {
         ContentView()
+            .previewLayout(.fixed(width: 812, height: 375)) // 1
+            .environment(\.horizontalSizeClass, .compact) // 2
+            .environment(\.verticalSizeClass, .compact) // 3
     }
 }
 #endif
